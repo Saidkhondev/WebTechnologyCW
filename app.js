@@ -84,6 +84,74 @@ app.get("/:id/delete", (req, res) => {
 });
 
 
+app.get("/:id/edit", (req, res) => {
+  const id = req.params.id;
+  fs.readFile(db, (err, data) => {
+    if (err) throw err;
+
+    const notesToEdit = JSON.parse(data);
+
+    const NoteToEdit = notesToEdit.filter((e) => e.id == id)[0];
+
+    const IndexOfslicedNote = notesToEdit.indexOf(NoteToEdit);
+    const slicedNote = notesToEdit.splice(IndexOfslicedNote, 1)[0];
+
+    fs.writeFile(db, JSON.stringify(notesToEdit), (err) => {
+      if (err) throw err;
+
+      res.render("Edit", {
+        notes: notesToEdit,
+        NoteToBeEdite: slicedNote,
+        Id: id,
+      });
+    });
+  });
+});
+
+
+
+
+app.post("/edit", (req, res) => {
+  const formData = req.body;
+
+  if (formData.note.trim() === "") {
+    fs.readFile(db, (err, data) => {
+      if (err) throw err;
+
+      const notes = JSON.parse(data);
+
+      res.render("home", { error: true, notes: notes });
+    });
+  } else {
+    fs.readFile(db, (err, data) => {
+      if (err) throw err;
+
+      const notes = JSON.parse(data);
+      const note = {
+        id: id(),
+        desc: formData.note,
+        crossed: false,
+      };
+
+      notes.push(note);
+
+      fs.writeFile(db, JSON.stringify(notes), (err) => {
+        if (err) throw err;
+
+        fs.readFile(db, (err, data) => {
+          if (err) throw err;
+
+          const notes = JSON.parse(data);
+
+          res.render("home", { updated: true, notes: notes });
+        });
+      });
+
+      // res.redirect("/");
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log("App is running on the Port : " + PORT);
 });
