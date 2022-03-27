@@ -146,37 +146,37 @@ app.post("/edit", (req, res) => {
           res.render("home", { updated: true, notes: notes });
         });
       });
+    })
+  }
+  })
 
+app.get("/:id/crossed", (req, res) => {
+  const id = req.params.id;
+  fs.readFile(db, (err, data) => {
+    if (err) throw err;
 
-      app.get("/:id/crossed", (req, res) => {
-        const id = req.params.id;
-        fs.readFile(db, (err, data) => {
-          if (err) throw err;
-      
-          const datas = JSON.parse(data);
-      
-          const noteToBeCrossed = datas.filter((e) => e.id == id)[0];
-          const indexOfNote = datas.indexOf(noteToBeCrossed);
-      
-          const splicedNote = datas.splice(indexOfNote, 1)[0];
-          if (splicedNote.crossed) splicedNote.crossed = false;
-          else splicedNote.crossed = true;
-      
-          datas.unshift(splicedNote);
-          fs.writeFile(db, JSON.stringify(datas), (err) => {
-            if (err) throw err;
-      
-            // res.render("home", { notes: datas });
-            res.redirect("/home");
-          });
-        });
-      });
+    const datas = JSON.parse(data);
+
+    const noteToBeCrossed = datas.filter((e) => e.id == id)[0];
+    const indexOfNote = datas.indexOf(noteToBeCrossed);
+
+    const splicedNote = datas.splice(indexOfNote, 1)[0];
+    if (splicedNote.crossed) splicedNote.crossed = false;
+    else splicedNote.crossed = true;
+
+    datas.unshift(splicedNote);
+    fs.writeFile(db, JSON.stringify(datas), (err) => {
+      if (err) throw err;
+
+      // res.render("home", { notes: datas });
+      res.redirect("/home");
+    });
+  });
+});
       
 
       // res.redirect("/");
-    });
-  }
-});
+  
 
 app.listen(PORT, () => {
   console.log("App is running on the Port : " + PORT);
