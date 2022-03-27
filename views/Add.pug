@@ -1,0 +1,18 @@
+extends layout.pug 
+
+block content
+    div.container
+        if error
+            p.errormsg Note should not be empty
+
+        if success
+            p.success Note is created successfully
+        
+        if deleted
+            p.success Note has been deleted successfully
+            
+        form.form(action="/create" method='POST')
+            label Add your Note...
+            input.input(type="text" name='title')
+
+            button.btn Add Note

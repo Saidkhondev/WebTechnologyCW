@@ -1,0 +1,26 @@
+extends layout.pug 
+
+block Content
+  div.container
+    form.AddForm(action=`/edit` method="POST")
+      input.userInput(type="text"  name="note" value=`${NoteToBeEdite.desc}`)
+      button.btn Update  
+
+
+
+    .notes 
+      if notes.length
+        each note in notes
+          p.note
+            if note.crossed
+              a.crossed(href=`/${note.id}/crossed`) #{note.desc}
+              span
+                a.delete(href=`/${ note.id }/delete`) Delete
+                a.update(href=`/${note.id}/edit`) Edit
+            else 
+              a.notcrossed(href=`/${note.id}/crossed`) #{note.desc}
+              span
+                a.delete(href=`/${ note.id }/delete`) Delete
+                a.update(href=`/${note.id}/edit`) Edit
+      else 
+        p.note There is not any Notes here...:(      
