@@ -168,7 +168,6 @@ app.post("/edit", (req, res) => {
       
             // res.render("home", { notes: datas });
             res.redirect("/home");
-            
           });
         });
       });
