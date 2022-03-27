@@ -1,0 +1,151 @@
+:root {
+  --main-color: white;
+  --bcg-color: rgb(170, 170, 170);
+  --hvr-color: #ccc;
+  --pane-padding: 5px 42px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 80px auto;
+}
+
+.home-container {
+  width: 70%;
+  margin: 10px auto;
+}
+
+.logo {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.homeBtn {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+  background-color: var(--bcg-color);
+  color: var(--main-color);
+  padding: 10px 20px;
+  width: 20%;
+  font-size: 1.5rem;
+  border: none;
+  margin-left: auto;
+}
+
+.new-note {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: var(--bcg-color);
+  color: var(--main-color);
+}
+
+.desc {
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 30px;
+}
+
+.AddForm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInput {
+  display: inline-block;
+  padding: 12px;
+  font-size: 1.5rem;
+  width: 90%;
+  border: 1px solid var(--bcg-color);
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--bcg-color);
+  color: var(--main-color);
+  padding: 10px 20px;
+  width: 15%;
+  font-size: 1.5rem;
+  border: none;
+}
+
+.btn,
+.userInput {
+  margin-top: 10px;
+}
+
+.notes {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+.note {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--hvr-color);
+}
+
+.note:hover {
+  background-color: var(--hvr-color);
+  transition: 0.2;
+}
+
+.successmsg,
+.errormsg {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+.successmsg {
+  background-color: rgb(104, 175, 104);
+}
+.errormsg {
+  background-color: #ff6b59;
+}
+
+.update,
+.delete {
+  margin-right: 5px;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.delete {
+  background-color: #ff6b59;
+  color: var(--main-color);
+}
+
+.update {
+  background-color: #85a9fe;
+  color: var(--main-color);
+}
+
+.crossed {
+  text-decoration: line-through;
+}
+.uncrossed {
+  text-decoration: solid;
+}
