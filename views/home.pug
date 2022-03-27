@@ -1,0 +1,34 @@
+extends layout.pug
+
+block Content
+  if error
+    p.errormsg Please Fill in the form
+  if success
+    p.successmsg Your Note has been added
+  if deleted
+    p.successmsg Deleted Successfully
+  if updated
+    p.successmsg Your Note has been Updated
+  form.AddForm(action="/add" method="POST")
+    input.userInput(type="text" placeholder="Add you note..." name="note")
+    button.btn Add Note 
+
+  
+
+  .notes 
+    if notes.length
+      each note in notes
+        p.note
+          if note.crossed
+            a.crossed(href=`/${note.id}/crossed`) #{note.desc}
+            span
+              a.update(href=`/${note.id}/edit`) Edit
+              a.delete(href=`/${ note.id }/delete`) Delete
+          else 
+            a.notcrossed(href=`/${note.id}/crossed`) #{note.desc}
+            span
+              a.update(href=`/${note.id}/edit`) Edit
+              a.delete(href=`/${ note.id }/delete`) Delete
+    else 
+      p.note There is not any Notes here...:(
+    a.homeBtn(href=`/`) Back to Home
