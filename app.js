@@ -23,7 +23,65 @@ app.get("/home", (req, res) => {
   });
 });
 
+app.post("/add", (req, res) => {
+  const formData = req.body;
 
+  if (formData.note.trim() === "") {
+    fs.readFile(db, (err, data) => {
+      if (err) throw err;
+
+      const notes = JSON.parse(data);
+
+      res.render("home", { error: true, notes: notes });
+    });
+  } else {
+    fs.readFile(db, (err, data) => {
+      if (err) throw err;
+
+      const notes = JSON.parse(data);
+      const note = {
+        id: id(),
+        desc: formData.note,
+        crossed: false,
+      };
+
+      notes.push(note);
+
+      fs.writeFile(db, JSON.stringify(notes), (err) => {
+        if (err) throw err;
+
+        fs.readFile(db, (err, data) => {
+          if (err) throw err;
+
+          const notes = JSON.parse(data);
+
+          res.render("home", { success: true, notes: notes });
+        });
+      });
+
+      // res.redirect("/");
+    });
+  }
+});
+
+
+
+app.get("/:id/delete", (req, res) => {
+  const id = req.params.id;
+  fs.readFile(db, (err, data) => {
+    if (err) throw err;
+
+    const Notes = JSON.parse(data);
+    const filteredData = Notes.filter((e) => e.id != id);
+
+    fs.writeFile(db, JSON.stringify(filteredData), (err) => {
+      if (err) throw err;
+
+      if (filteredData.length == 0) res.redirect("/home");
+      else res.render("home", { deleted: true, notes: filteredData });
+    });
+  });
+});
 
 
 app.listen(PORT, () => {
